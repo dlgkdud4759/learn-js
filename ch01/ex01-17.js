@@ -13,7 +13,7 @@ if (age >= 20) {
   console.log("미성년자");
 }
 
-num = -5;
+const num = -5;
 
 // num이 양수이면 '양수'출력
 // num이 음수이면 '음수'출력

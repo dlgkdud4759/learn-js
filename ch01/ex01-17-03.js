@@ -20,13 +20,13 @@ if (isLogin) {
 // 구매자/판매자/관리자
 
 if (isUser) {
-  console.log(구매자);
+  console.log("구매자");
 } else {
   if (isSeller) {
-    console.log(판매자);
+    console.log("판매자");
   } else {
     if (isAdmin) {
-      console.log(관리자);
+      console.log("관리자");
     }
   }
 }
@@ -62,3 +62,17 @@ if (isLogin === false && isAdmin === true) {
   console.log('관리자 로그아웃상태');
 }
 */
+
+// let loginStatus = isLogin ? "로그인" : "로그아웃";
+// const userType = isUser ? "구매자" : isSeller ? "판매자" : "관리자";
+
+// let userType;
+// if (isUser) {
+//   userType = "구매자";
+// } else {
+//   if (isSeller) {
+//     userType = "구매자";
+//   } else {
+//     userType = "관리자";
+//   }
+// }
