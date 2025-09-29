@@ -8,12 +8,6 @@ let user = {
   hobby: "게임",
 }; // JSON 표기법으로 객체 생성
 
-user = {
-  name: "이하영",
-  age: 25,
-  hobby: "게임",
-}; // JSON 표기법으로 객체 생성
-
 console.log(user.name, user["age"], user.hobby);
 console.log(typeof user, user);
 
