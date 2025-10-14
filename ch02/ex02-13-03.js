@@ -9,4 +9,21 @@
   - 매개변수 뒤에  "= 초기값" 형태로 작성
 */
 
+function fn(n1 = 0, n2 = 0, ...nums) {
+  console.log(n1, n2, nums);
+  // console.log(n1, n2, arguments);
+  // 모든 인자값의 합계를 출력
+  let sum = n1 + n2;
 
+  for (let i = 0; i < nums.length; i++) {
+    sum += nums[i];
+  }
+
+  console.log("합계", sum);
+}
+
+fn(10, 20);
+fn();
+fn(10);
+fn(10, 20, 30);
+fn(10, 20, 30, 53543543636, 43, 124, 6546, 7, 6435, 23423, 14);
