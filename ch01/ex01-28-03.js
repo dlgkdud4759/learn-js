@@ -41,7 +41,7 @@ const arr = {
     // tmpArr.push.call(this, color);
 
     // 배열의 생성자 함수의 Array의 메서드를 정의하는 속성인 prototype을 사용
-    Array.prototype.push(color);
+    Array.prototype.push.call(this, color);
   },
 };
 
