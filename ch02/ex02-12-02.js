@@ -4,9 +4,11 @@
   - let, const로 선언한 변수의 경우 호이스팅 단계에서 선언은 되지만 초기화가 되지 않기 때문에 
     선언 전에 접근하면 에러 발생 (undefined 값도 할당되지 않은 상태)
 */
+console.log(add);
+console.log(add(10, 20)); // TypeError: add is not a function
 
 // 함수 표현식
-var add = function(x, y){
+var add = function (x, y) {
   return x + y;
 };
 
