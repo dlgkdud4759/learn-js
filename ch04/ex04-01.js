@@ -5,3 +5,25 @@
   - 클로저로 인해 유효 범위가 사라진 변수와 함수를 접근할 수 있음
 */
 
+const topLevel = "최상위 변수";
+
+// 외부 함수
+function outerFn() {
+  const innerVal = "outerFn의 지역변수";
+  console.log(2, topLevel);
+  console.log(3, innerVal);
+
+  // 내부 함수
+  const innerFn = function () {
+    console.log(4, innerVal); //outerFn의 지역 변수
+  };
+
+  return innerFn;
+}
+
+console.log(1, topLevel);
+// console.log(innerVal); // 지역 변수는 선언한 함수내에서만 접근 가능
+
+const inner = outerFn();
+
+inner(); // outerFn() 리턴된 후에 호출
