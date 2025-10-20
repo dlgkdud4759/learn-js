@@ -31,3 +31,14 @@ Function.prototype.memo = function (key) {
     return (this._cache[key] = this(key));
   }
 };
+
+// isPrime(5) 메모이제이션 안 됨
+// isPrime = is.Prime.memoize();
+// isPrime(5) 메모이제이션이 됨
+Function.prototype.memoize = function () {
+  // this = isPrime
+  const fn = this;
+  return function () {
+    return fn.memo.apply(fn, arguments); // isPrime.memo(5)
+  };
+};
