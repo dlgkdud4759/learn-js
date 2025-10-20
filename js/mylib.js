@@ -20,3 +20,14 @@ mylib.inherite = function (Parent, Child) {
   // Object.create: 지정한 prototype 객체를 참조하는 객체 생성
   Child.prototype = Object.create(Parent.prototype);
 };
+
+// 모든 함수에 메모이제이션 기능 추가
+Function.prototype.memo = function (key) {
+  // 캐시를 위한 코드
+  this._cache = this._cache || {};
+  if (this._cache[key] !== undefined) {
+    return this._cache[key];
+  } else {
+    return (this._cache[key] = this(key));
+  }
+};
