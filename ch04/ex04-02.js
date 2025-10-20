@@ -5,12 +5,26 @@
 */
 
 // count 속성과 ride(), getCount() 메서드 작성
-const Counter = function(){
-  
+const Counter = function () {
+  let count = 0;
+  this.ride = function () {
+    if (this.count < 40) {
+      count++;
+    } else {
+      console.log("정원 초과!!!");
+    }
+  };
+  this.getCount = function () {
+    return count;
+  };
 };
 
 const c = new Counter();
 c.ride();
 c.ride();
 
-console.log('전체 탑승자', c.getCount());
+for (let i = 0; i < 40; i++) {
+  c.ride();
+}
+
+console.log("전체 탑승자", c.getCount());
