@@ -6,3 +6,18 @@
   - 특정 코드 블럭을 독립적인 모듈로 사용할 수 있음
 */
 
+(() => {
+  let sum = 0;
+  for (let i = 1; i <= 10; i += 2) {
+    sum += i;
+  }
+  console.log("1~10 까지의 홀수 합계", sum); // 25
+})();
+
+(function () {
+  let sum = 0;
+  for (let i = 2; i <= 10; i += 2) {
+    sum += i;
+  }
+  console.log("1~10 까지의 짝수 합계", sum); // 30
+})();
