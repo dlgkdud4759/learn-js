@@ -1,33 +1,36 @@
+const todoList = [
+  {
+    id: 1,
+    title: "JavaScript 공부",
+    done: true,
+  },
+  {
+    id: 8,
+    title: "React 공부",
+    done: false,
+  },
+  {
+    id: 3,
+    title: "바닐라 프로젝트",
+    done: false,
+  },
+  {
+    id: 2,
+    title: "TypeScript 공부",
+    done: false,
+  },
+  {
+    id: 5,
+    title: "Final 프로젝트",
+    done: true,
+  },
+];
+
+// 배열의 Todo 아이템 id 중 가장 큰 값
+let lastNo = Math.max(...todoList.map((item) => item.id));
+
 // 할일 목록을 화면에 출력
 function showList() {
-  const todoList = [
-    {
-      id: 1,
-      title: "JavaScript 공부",
-      done: true,
-    },
-    {
-      id: 4,
-      title: "React 공부",
-      done: false,
-    },
-    {
-      id: 3,
-      title: "바닐라 프로젝트",
-      done: false,
-    },
-    {
-      id: 2,
-      title: "TypeScript 공부",
-      done: false,
-    },
-    {
-      id: 5,
-      title: "Final 프로젝트",
-      done: true,
-    },
-  ];
-
   // Todo 객체를 li 요소로 변환
   const todoListElem = todoList.map((item) => getTodoItemElem(item));
 
@@ -88,10 +91,12 @@ function getTodoItemElem(item) {
   deleteElem.appendChild(deleteTxt);
 
   // <li data-no="2">
-  liElem.setAttribute("data-no", item.id);
+  // liElem.setAttribute("data-no", item.id);
+  liElem.dataset.no = item.id; // custom attribute
 
   // <li data-no="2" data-done="false">
-  liElem.setAttribute("data-done", item.done);
+  // liElem.setAttribute("data-done", item.done);
+  liElem.dataset.done = item.done; // custom attribute
 
   /*
   <li data-no="2">
@@ -112,7 +117,8 @@ function getTodoItemElem(item) {
   deleteElem.addEventListener("click", function () {
     // this: 이벤트가 발생한 요소(<button>)
     const parentLi = this.parentNode; // <button>의 부모인 <li>
-    const no = parentLi.getAttribute("data-no"); // <li data-no=""> 속성 추출
+    // const no = parentLi.getAttribute("data-no"); // <li data-no=""> 속성 추출
+    const no = parentLi.dataset.no; // custom attribute
 
     removeItem(no);
   });
@@ -153,7 +159,7 @@ function add() {
 function addItem(title) {
   const todoListUl = document.querySelector(".todolist");
   const item = {
-    id: todoListUl.children.length + 1,
+    id: ++lastNo,
     title,
     done: false,
   };
@@ -187,7 +193,8 @@ function removeItem(no) {
  */
 function toggleDone(no) {
   const targetLi = document.querySelector(`.todolist > li[data-no="${no}"]`);
-  const beforeDone = targetLi.getAttribute("data-done");
+  // const beforeDone = targetLi.getAttribute("data-done");
+  const beforeDone = targetLi.dataset.done; // custom attribute
   const isDone = !(beforeDone === "true");
   const titleEl = targetLi.querySelector("span:last-of-type");
 
@@ -206,7 +213,9 @@ function toggleDone(no) {
     // <span>샘플2</span>
     titleEl.firstElementChild.remove();
   }
-  targetLi.setAttribute("data-done", isDone);
+  // <li data-done="true"> <-> <li data-done="false">
+  // targetLi.setAttribute("data-done", isDone);
+  targetLi.dataset.done = isDone; // custom attribute
 }
 
 // '추가' 버튼 클릭
