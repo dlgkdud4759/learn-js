@@ -69,8 +69,19 @@ function getTodoItemElem(item) {
   // <span>2</span>
   noElem.appendChild(noTxt);
 
-  // <span>샘플2</span>
-  titleElem.appendChild(titleTxt);
+  // 완료
+  // 미완료
+  if (item.done) {
+    // <s>
+    const sElem = document.createElement("s");
+    // <s>샘플2</s>
+    sElem.appendChild(titleTxt);
+    // <span><s>샘플2</s></span>
+    titleElem.appendChild(sElem);
+  } else {
+    // <span>샘플2</span>
+    titleElem.appendChild(titleTxt);
+  }
 
   // <button type="button">삭제</button>
   deleteElem.setAttribute("type", "button");
@@ -78,6 +89,9 @@ function getTodoItemElem(item) {
 
   // <li data-no="2">
   liElem.setAttribute("data-no", item.id);
+
+  // <li data-no="2" data-done="false">
+  liElem.setAttribute("data-done", item.done);
 
   /*
   <li data-no="2">
@@ -103,8 +117,11 @@ function getTodoItemElem(item) {
     removeItem(no);
   });
 
+  // 완료/미완료 이벤트 추가
+  titleElem.addEventListener("click", () => toggleDone(item.id));
+
   /*
-  <li data-no="2">
+  <li data-no="2" data-don="false">
    <span>2</span>
    <span>샘플2</span>
    <button type="button">삭제</button>
@@ -162,6 +179,34 @@ function handleKeyup(event) {
 function removeItem(no) {
   const targetLi = document.querySelector(`.todolist > li[data-no = "${no}"]`);
   targetLi?.remove();
+}
+
+/**
+ * Todo 아이템의 완료/미완료 상태를 토글하는 함수
+ * @param {number} no - 토글할 Todo 아이템의 번호(id)
+ */
+function toggleDone(no) {
+  const targetLi = document.querySelector(`.todolist > li[data-no="${no}"]`);
+  const beforeDone = targetLi.getAttribute("data-done");
+  const isDone = !(beforeDone === "true");
+  const titleEl = targetLi.querySelector("span:last-of-type");
+
+  // done이 true라면 <span>샘플2</span> -> <span><s>샘플2</s></span>
+  // done이 false라면 <span><s>샘플2</s></span> -> <span>샘플2</span>
+  if (isDone) {
+    // <s>
+    const sElem = document.createElement("s");
+    // <span></span>, <s>샘플2</s>
+    sElem.appendChild(titleEl.firstChild);
+    // <span><s>샘플2</s></span>
+    titleEl.appendChild(sElem);
+  } else {
+    // <span><s></s>샘플2</span>
+    titleEl.appendChild(titleEl.firstElementChild.firstChild);
+    // <span>샘플2</span>
+    titleEl.firstElementChild.remove();
+  }
+  targetLi.setAttribute("data-done", isDone);
 }
 
 // '추가' 버튼 클릭
