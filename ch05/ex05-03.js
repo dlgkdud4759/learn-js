@@ -19,6 +19,12 @@ window.addEventListener("DOMContentLoaded", function () {
   //세 번째 버튼 찾기
   const btn3 = btn2.nextElementSibling;
 
+  //네 번째 버튼 찾기
+  const btn4 = btn3.nextElementSibling;
+
+  //다섯 번째 버튼 찾기
+  const btn5 = btn4.nextElementSibling;
+
   // 첫 버튼에 클릭 이벤트 추가
   btn1.addEventListener("click", function () {
     const movies = document.querySelector("#movies");
@@ -54,5 +60,17 @@ window.addEventListener("DOMContentLoaded", function () {
       const firstLi = target.firstElementChild; // <li>
       firstLi?.remove(); // 옵셔널 체이닝
     }
+  });
+
+  // 네 번째 버튼에 클릭 이벤트 추가
+  btn4.addEventListener("click", function () {
+    const targetLi = document.querySelector("#buy-list > li:first-child");
+    targetLi.remove();
+  });
+
+  // 다섯 번째 버튼에 클릭 이벤트 추가
+  btn5.addEventListener("click", () => {
+    const targetLi = document.querySelector("#movies > li:first-child");
+    targetLi.remove();
   });
 });
