@@ -1,29 +1,9 @@
 const todoList = [
-  {
-    id: 1,
-    title: "JavaScript 공부",
-    done: true,
-  },
-  {
-    id: 8,
-    title: "React 공부",
-    done: false,
-  },
-  {
-    id: 3,
-    title: "바닐라 프로젝트",
-    done: false,
-  },
-  {
-    id: 2,
-    title: "TypeScript 공부",
-    done: false,
-  },
-  {
-    id: 5,
-    title: "Final 프로젝트",
-    done: true,
-  },
+  { id: 1, title: "JavaScript 공부", done: true, important: false },
+  { id: 8, title: "React 공부", done: false, important: true },
+  { id: 3, title: "바닐라 프로젝트", done: false, important: false },
+  { id: 2, title: "TypeScript 공부", done: false, important: false },
+  { id: 5, title: "Final 프로젝트", done: true, important: true },
 ];
 
 // 배열의 Todo 아이템 id 중 가장 큰 값
@@ -60,6 +40,9 @@ function getTodoItemElem(item) {
   // <button>
   const deleteElem = document.createElement("button");
 
+  // <button> - star 버튼
+  const starElem = document.createElement("button");
+
   // 2
   const noTxt = document.createTextNode(item.id);
 
@@ -68,6 +51,16 @@ function getTodoItemElem(item) {
 
   // 삭제
   const deleteTxt = document.createTextNode("삭제");
+
+  // ⭐ or ☆
+  starElem.textContent = item.important ? "⭐" : "☆";
+  starElem.classList.add("star-btn");
+
+  // 중요한 목록 표시 토글
+  starElem.addEventListener("click", (event) => {
+    event.stopPropagation(); // 완료 토글 클릭 방지
+    toggleImportant(item.id);
+  });
 
   // <span>2</span>
   noElem.appendChild(noTxt);
@@ -97,6 +90,10 @@ function getTodoItemElem(item) {
   // <li data-no="2" data-done="false">
   // liElem.setAttribute("data-done", item.done);
   liElem.dataset.done = item.done; // custom attribute
+
+  liElem.dataset.important = item.important; // custom attribute
+
+  liElem.appendChild(starElem); // custom attribute
 
   /*
   <li data-no="2">
@@ -216,6 +213,19 @@ function toggleDone(no) {
   // <li data-done="true"> <-> <li data-done="false">
   // targetLi.setAttribute("data-done", isDone);
   targetLi.dataset.done = isDone; // custom attribute
+}
+
+/**
+ * 중요 목록 표시 상태를 토글하는 함수
+ * @param {number} no - 토글할 Todo 아이템의 번호(id)
+ */
+function toggleImportant(no) {
+  const targetLi = document.querySelector(`.todolist > li[data-no="${no}"]`);
+  const isImportant = !(targetLi.dataset.important === "true");
+  targetLi.dataset.important = isImportant;
+
+  const starBtn = targetLi.querySelector(".star-btn");
+  starBtn.textContent = isImportant ? "⭐" : "☆";
 }
 
 // '추가' 버튼 클릭
