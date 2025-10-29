@@ -8,5 +8,18 @@
         done: true,
     };
     console.log(todo);
+    const haru = {
+        name: "하루",
+        email: "haru@gmail.com",
+        phone: "01012312312",
+    };
+    const namu = {
+        name: "나무",
+        email: "namu@gmail.com",
+        address: "경기도 김포시",
+        job: "강아지",
+        gender: "여자",
+    };
+    console.log(haru, namu);
 })();
 export {};

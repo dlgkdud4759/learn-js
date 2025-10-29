@@ -21,4 +21,30 @@
   };
 
   console.log(todo);
+
+  interface User {
+    name: string;
+    email: string;
+    // phone?: string;
+    // address?: string;
+    // job?: string;
+
+    [key: string]: string; // 인덱스 시그니처(같은 타입일 경우 여러 속성들을 하나로 정의할 수 있음)
+  }
+
+  const haru: User = {
+    name: "하루",
+    email: "haru@gmail.com",
+    phone: "01012312312",
+  };
+
+  const namu: User = {
+    name: "나무",
+    email: "namu@gmail.com",
+    address: "경기도 김포시",
+    job: "강아지",
+    gender: "여자",
+  };
+
+  console.log(haru, namu);
 })();
