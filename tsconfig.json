@@ -39,6 +39,8 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    "noEmitOnError": true // 기본은 false, 컴파일 에러 시 js로 변환하지 않음
   }
 }
