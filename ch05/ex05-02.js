@@ -7,16 +7,20 @@ const countSpan = document.querySelector("#container > span");
 
 // + 버튼에 클릭 이벤트 등록
 btn.addEventListener("click", function () {
-  // const currVal = parseInt(countSpan.lastChild.nodeValue);
-  // const nextVal = currVal + 1;
+  const currVal = parseInt(countSpan.lastChild.nodeValue);
+  const nextVal = currVal + 1;
 
-  // countSpan.firstChild.nodeValue = nextVal;
+  countSpan.firstChild.nodeValue = nextVal;
+
+  if (nextVal === 100) {
+    clearTimeout(timerId);
+  }
 
   // countSpan.textContent = parseInt(countSpan.textContent) + 1;
-  countSpan.textContent++;
+  // countSpan.textContent++;
 });
 
-setTimeout(function () {
+const timerId = setTimeout(function () {
   // 이벤트 취소
-  // btn.removeEventListener("click", plus);
+  btn.removeEventListener("click", plus);
 }, 1000 * 10);
