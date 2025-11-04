@@ -12,10 +12,10 @@
             setTimeout(() => {
                 // 시간 걸리는 작업 처리 중...
                 if (delay < 5000) {
-                    resolve("f1의 작업 결과: " + delay);
+                    resolve("8. f1의 작업 결과: " + delay);
                 }
                 else {
-                    reject("f1의 작업 결과: " + delay);
+                    reject("8. f1의 작업 실패 사유: " + delay);
                 }
             }, delay);
             console.log("5. f1 리턴됨.");
@@ -27,10 +27,13 @@
         // 순서는 상관 없지만, 보통 then()을 먼저 사용
         f1()
             .then((result) => {
-            console.log(result);
+            console.log(result.toLocaleLowerCase);
         })
             .catch((reason) => {
             console.error(reason);
+        })
+            .finally(() => {
+            console.log("9. 비동기 작업 완료됨");
         });
         console.log("6. test 리턴됨");
     }
