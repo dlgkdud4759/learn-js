@@ -18,9 +18,7 @@
       const result1 = divide(10, Math.round(Math.random()));
       console.log(result1);
     } catch (err) {
-      if (err instanceof Error) {
-        console.error(err.message);
-      }
+      console.error(err);
     }
     const result2 = divide(10, 2);
     console.log(result2);
