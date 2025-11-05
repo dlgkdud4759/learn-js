@@ -13,7 +13,7 @@ async function getImages(): Promise<void> {
   try {
     const response = await fetch(url);
     // 응답 상태 코드가 2xx 일 경우
-    // 응답 상태 코드가 4xx, 5xx 일 경우
+    // 응답 상태 코드가 4xx, 5xx 일 경우.
     if (response.ok) {
       const data: Cat[] = await response.json();
       console.log("data", data);
