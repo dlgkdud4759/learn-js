@@ -1,19 +1,20 @@
 // ex05-05.js 복사
 
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import type {
   TodoListRes,
   TodoList,
   TodoDeleteRes,
   TodoInfoRes,
 } from "./types.js";
+import { getAxios } from "./utils.js";
 
-const API_SERVER = "https://fesp-api.koyeb.app/todo";
+const axiosInstance = getAxios();
 
 // 할일 목록을 서버에서 조회한 후 화면에 출력
 async function showList() {
   try {
-    const { data } = await axios.get<TodoListRes>(`${API_SERVER}/todolist`);
+    const { data } = await axiosInstance.get<TodoListRes>(`/todolist`);
     if (data.ok) {
       const todoList = data.items;
 
@@ -67,16 +68,6 @@ function getTodoItemElem(item: TodoList) {
   // 삭제
   const deleteTxt = document.createTextNode("삭제");
 
-  // ⭐ or ☆
-  // starElem.textContent = item.important ? "⭐" : "☆";
-  // starElem.classList.add("star-btn");
-
-  // 중요한 목록 표시 토글
-  // starElem.addEventListener("click", (event) => {
-  //   event.stopPropagation(); // 완료 토글 클릭 방지
-  //   toggleImportant(item._id);
-  // });
-
   // <span>2</span>
   noElem.appendChild(noTxt);
 
@@ -107,8 +98,6 @@ function getTodoItemElem(item: TodoList) {
   liElem.dataset.done = item.done.toString(); // custom attribute
 
   liElem.dataset.important = item.important.toString(); // custom attribute
-
-  // liElem.appendChild(starElem); // custom attribute
 
   /*
   <li data-no="2">
@@ -173,7 +162,7 @@ function add() {
  */
 async function addItem(title: string) {
   try {
-    await axios.post<TodoInfoRes>(`${API_SERVER}/todolist`, { title });
+    await axiosInstance.post<TodoInfoRes>(`/todolist`, { title });
     showList();
   } catch (err) {
     if (err instanceof AxiosError) {
@@ -197,7 +186,7 @@ function handleKeyup(event: KeyboardEvent) {
  */
 async function removeItem(no: number) {
   try {
-    await axios.delete<TodoDeleteRes>(`${API_SERVER}/todolist/${no}`);
+    await axiosInstance.delete<TodoDeleteRes>(`/todolist/${no}`);
     showList();
   } catch (err) {
     if (err instanceof AxiosError) {
@@ -218,7 +207,7 @@ async function toggleDone(no: number) {
   const isDone = !(beforeDone === "true");
 
   try {
-    await axios.patch<TodoInfoRes>(`${API_SERVER}/todolist/${no}`, {
+    await axiosInstance.patch<TodoInfoRes>(`/todolist/${no}`, {
       done: isDone,
     });
     showList();
@@ -228,19 +217,6 @@ async function toggleDone(no: number) {
     }
   }
 }
-
-/**
- * 중요 목록 표시 상태를 토글하는 함수
- * @param {number} no - 토글할 Todo 아이템의 번호(id)
- */
-// function toggleImportant(no: number) {
-//   const targetLi = document.querySelector(`.todolist > li[data-no="${no}"]`);
-//   const isImportant = !(targetLi!.dataset.important === "true");
-//   targetLi!.dataset.important = isImportant;
-
-//   const starBtn = targetLi!.querySelector(".star-btn");
-//   starBtn!.textContent = isImportant ? "⭐" : "☆";
-// }
 
 // '추가' 버튼 클릭
 document.querySelector(".todoinput > button")!.addEventListener("click", add);
